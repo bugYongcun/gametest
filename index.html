@@ -7,220 +7,219 @@
 <script src="js/jquery.js"></script>
 </head>
 <body>
-	<script src='js/main.js'></script>
- <script>
-// //全局变量
-// var backgroundForestImg=new Image();//背景图
-// var mouseMoveImg=new Image();//鼠标指针
-// var monstor0Img=new Image();//恶魔猎手
-// var monstor1Img=new Image();
-// var monstor2Img=new Image();
-// var ctx;//2d画布
-// var screenWidth=640;//画布宽度  
-// var screenHeight=480;//画布高度
-// var speed=8;//怪物动作速度
-// var step=1;//暂时只能是1
+<script>
+//全局变量
+var backgroundForestImg=new Image();//背景图
+var mouseMoveImg=new Image();//鼠标指针
+var monstor0Img=new Image();//恶魔猎手
+var monstor1Img=new Image();
+var monstor2Img=new Image();
+var ctx;//2d画布
+var screenWidth=640;//画布宽度  
+var screenHeight=480;//画布高度
+var speed=8;//怪物动作速度
+var step=1;//暂时只能是1
 
-// //公用 定义一个游戏物体戏对象
-// function GameObject(){
-// 	this.x=0; //x坐标
-// 	this.y=0; //y坐标
-// 	this.image=null;//图片
-// 	this.hp=0;//血量
-// 	this.SquareWidth=0;//图片小方格宽
-// 	this.SquareHeight=0;//图片小方格高
-// 	this.Direction=0;//存放物体方向 0下，1左，2右，3上
-// 	this.MoveNum=0;//存放正在使用的动作
-// 	this.MoveX=0;//定义目的地坐标X
-// 	this.MoveY=0;//定义目的地坐标X
-// 	this.speed_count=0;//保存怪物动作
-// } 
+//公用 定义一个游戏物体戏对象
+function GameObject(){
+	this.x=0; //x坐标
+	this.y=0; //y坐标
+	this.image=null;//图片
+	this.hp=0;//血量
+	this.SquareWidth=0;//图片小方格宽
+	this.SquareHeight=0;//图片小方格高
+	this.Direction=0;//存放物体方向 0下，1左，2右，3上
+	this.MoveNum=0;//存放正在使用的动作
+	this.MoveX=0;//定义目的地坐标X
+	this.MoveY=0;//定义目的地坐标X
+	this.speed_count=0;//保存怪物动作
+} 
 
 
-// //定义物件对象
-// function MouseMove(){};
-// MouseMove.prototype= new GameObject();//给鼠标移动物体添加对象属性
-// var mouseMove=new MouseMove();//鼠标移动实例
+//定义物件对象
+function MouseMove(){};
+MouseMove.prototype= new GameObject();//给鼠标移动物体添加对象属性
+var mouseMove=new MouseMove();//鼠标移动实例
 
-// var monstor = new Array();
+var monstor = new Array();
 
-// function Monstor0(){};
-// Monstor0.prototype= new GameObject();
-// monstor[0]=new Monstor0();
-// monstor[0].SquareWidth=80;
-// monstor[0].SquareHeight=80;
+function Monstor0(){};
+Monstor0.prototype= new GameObject();
+monstor[0]=new Monstor0();
+monstor[0].SquareWidth=80;
+monstor[0].SquareHeight=80;
 
-// function Monstor1(){};
-// Monstor1.prototype= new GameObject();
-// monstor[1]=new Monstor1();
-// monstor[1].SquareWidth=32;
-// monstor[1].SquareHeight=48;
+function Monstor1(){};
+Monstor1.prototype= new GameObject();
+monstor[1]=new Monstor1();
+monstor[1].SquareWidth=32;
+monstor[1].SquareHeight=48;
 
-// function Monstor2(){};
-// Monstor2.prototype= new GameObject();
-// monstor[2]=new Monstor2();
-// monstor[2].SquareWidth=32;
-// monstor[2].SquareHeight=48;
-// //定义物件对象
+function Monstor2(){};
+Monstor2.prototype= new GameObject();
+monstor[2]=new Monstor2();
+monstor[2].SquareWidth=32;
+monstor[2].SquareHeight=48;
+//定义物件对象
 
-// function GameLoop(){
-// 	//清除屏幕
-// 	ctx.clearRect(0, 0, screenWidth, screenHeight);   
-// 	ctx.save();
+function GameLoop(){
+	//清除屏幕
+	ctx.clearRect(0, 0, screenWidth, screenHeight);   
+	ctx.save();
 	
-// 	//绘制背景
-// 	ctx.drawImage(backgroundForestImg, 0, 0);
+	//绘制背景
+	ctx.drawImage(backgroundForestImg, 0, 0);
 	
-// 	//绘制怪物
-// 	MonstorMove();
-// 	for(i=0;i<monstor.length;i++){
-// 		ctx.drawImage(monstor[i].image,
-// 					  monstor[i].SquareWidth*monstor[i].MoveNum,monstor[i].SquareHeight*monstor[i].Direction,//图像将要被绘制的区域的左上角。这些整数参数用图像像素来度量。
-// 					  monstor[i].SquareWidth,monstor[i].SquareHeight,//图像所要绘制区域的大小，用图像像素表示。
-// 					  monstor[i].x, monstor[i].y,//所要绘制的图像区域的左上角的画布坐标。
-// 					  monstor[i].SquareWidth,monstor[i].SquareHeight//图像区域所要绘制的画布大小。
-// 					  );
-// 	}
+	//绘制怪物
+	MonstorMove();
+	for(i=0;i<monstor.length;i++){
+		ctx.drawImage(monstor[i].image,
+					  monstor[i].SquareWidth*monstor[i].MoveNum,monstor[i].SquareHeight*monstor[i].Direction,//图像将要被绘制的区域的左上角。这些整数参数用图像像素来度量。
+					  monstor[i].SquareWidth,monstor[i].SquareHeight,//图像所要绘制区域的大小，用图像像素表示。
+					  monstor[i].x, monstor[i].y,//所要绘制的图像区域的左上角的画布坐标。
+					  monstor[i].SquareWidth,monstor[i].SquareHeight//图像区域所要绘制的画布大小。
+					  );
+	}
 	
-// 	//绘制鼠标移动物体
-// 	ctx.drawImage(mouseMove.image, mouseMove.x, mouseMove.y);
-// }
+	//绘制鼠标移动物体
+	ctx.drawImage(mouseMove.image, mouseMove.x, mouseMove.y);
+}
 
-// //加载图片
-// function LoadImages(){
-// 	backgroundForestImg.src="images/map.png";
+//加载图片
+function LoadImages(){
+	backgroundForestImg.src="images/map.png";
 	
-// 	mouseMoveImg.src="images/point.png";
-// 	mouseMove.image=mouseMoveImg;
+	mouseMoveImg.src="images/point.png";
+	mouseMove.image=mouseMoveImg;
 	
-// 	monstor0Img.src="images/monster1.png";
-// 	monstor[0].image=monstor0Img;
+	monstor0Img.src="images/monster1.png";
+	monstor[0].image=monstor0Img;
 	
-// 	monstor1Img.src="images/monster2.png";
-// 	monstor[1].image=monstor1Img;
+	monstor1Img.src="images/monster2.png";
+	monstor[1].image=monstor1Img;
 	
-// 	monstor2Img.src="images/monster3.png";
-// 	monstor[2].image=monstor2Img;
-// }
+	monstor2Img.src="images/monster3.png";
+	monstor[2].image=monstor2Img;
+}
 
-// //添加事件
-// function AddEventHandlers(){
-// 	//鼠标移动事件
-// 	$("#container").mousemove(function(e){   
-// 		mouseMove.x=e.pageX - (mouseMove.image.width/2);   
-// 		mouseMove.y=e.pageY - (mouseMove.image.height/2);  
-// 	});
+//添加事件
+function AddEventHandlers(){
+	//鼠标移动事件
+	$("#container").mousemove(function(e){   
+		mouseMove.x=e.pageX - (mouseMove.image.width/2);   
+		mouseMove.y=e.pageY - (mouseMove.image.height/2);  
+	});
 	
-// 	//鼠标点击事件
-// 	$("#container").click(function(e){   
-// 		monstor[0].MoveX=e.pageX - (monstor[0].SquareWidth/2);     
-// 		monstor[0].MoveY=e.pageY - (monstor[0].SquareHeight/2); 
-// 	});
-// }
+	//鼠标点击事件
+	$("#container").click(function(e){   
+		monstor[0].MoveX=e.pageX - (monstor[0].SquareWidth/2);     
+		monstor[0].MoveY=e.pageY - (monstor[0].SquareHeight/2); 
+	});
+}
 
-// function MonstorMove(){
-// 	for(i=0;i<monstor.length;i++){
-// 		if(monstor[i].x>monstor[i].MoveX){
-// 			if(monstor[i].x>0){
-// 				monstor[i].x=monstor[i].x-step;
-// 				monstor[i].Direction=1;
-// 				if(monstor[i].speed_count==speed){
-// 					if(monstor[i].MoveNum<4){
-// 						monstor[i].MoveNum++;
-// 					}
-// 					if(monstor[i].MoveNum>3){
-// 						monstor[i].MoveNum=0;
-// 					}
-// 					monstor[i].speed_count=0;
-// 				}else{
-// 					monstor[i].speed_count++;
-// 				}
-// 			}
-// 		}
-// 		if(monstor[i].x<monstor[i].MoveX){
-// 			if(monstor[i].x<screenWidth){
-// 				monstor[i].x=monstor[i].x+step;
-// 				monstor[i].Direction=2;
-// 				if(monstor[i].speed_count==speed){
-// 					if(monstor[i].MoveNum<4){
-// 						monstor[i].MoveNum++;
-// 					}
-// 					if(monstor[i].MoveNum>3){
-// 						monstor[i].MoveNum=0;
-// 					}
-// 					monstor[i].speed_count=0;
-// 				}else{
-// 					monstor[i].speed_count++;
-// 				}
-// 			}
-// 		}
-// 		if(monstor[i].y>monstor[i].MoveY && monstor[i].x==monstor[i].MoveX){
-// 			if(monstor[i].y>0){
-// 				monstor[i].y=monstor[i].y-step;
-// 				monstor[i].Direction=3;
-// 				if(monstor[i].speed_count==speed){
-// 					if(monstor[i].MoveNum<4){
-// 						monstor[i].MoveNum++;
-// 					}
-// 					if(monstor[i].MoveNum>3){
-// 						monstor[i].MoveNum=0;
-// 					}
-// 					monstor[i].speed_count=0;
-// 				}else{
-// 					monstor[i].speed_count++;
-// 				}
-// 			}
-// 		}
-// 		if(monstor[i].y<monstor[i].MoveY && monstor[i].x==monstor[i].MoveX){
-// 			if(monstor[i].y<screenHeight){
-// 				monstor[i].y=monstor[i].y+step;
-// 				monstor[i].Direction=0;
-// 				if(monstor[i].speed_count==speed){
-// 					if(monstor[i].MoveNum<4){
-// 						monstor[i].MoveNum++;
-// 					}
-// 					if(monstor[i].MoveNum>3){
-// 						monstor[i].MoveNum=0;
-// 					}
-// 					monstor[i].speed_count=0;
-// 				}else{
-// 					monstor[i].speed_count++;
-// 				}
-// 			}
-// 		}
-// 	}
+function MonstorMove(){
+	for(i=0;i<monstor.length;i++){
+		if(monstor[i].x>monstor[i].MoveX){
+			if(monstor[i].x>0){
+				monstor[i].x=monstor[i].x-step;
+				monstor[i].Direction=1;
+				if(monstor[i].speed_count==speed){
+					if(monstor[i].MoveNum<4){
+						monstor[i].MoveNum++;
+					}
+					if(monstor[i].MoveNum>3){
+						monstor[i].MoveNum=0;
+					}
+					monstor[i].speed_count=0;
+				}else{
+					monstor[i].speed_count++;
+				}
+			}
+		}
+		if(monstor[i].x<monstor[i].MoveX){
+			if(monstor[i].x<screenWidth){
+				monstor[i].x=monstor[i].x+step;
+				monstor[i].Direction=2;
+				if(monstor[i].speed_count==speed){
+					if(monstor[i].MoveNum<4){
+						monstor[i].MoveNum++;
+					}
+					if(monstor[i].MoveNum>3){
+						monstor[i].MoveNum=0;
+					}
+					monstor[i].speed_count=0;
+				}else{
+					monstor[i].speed_count++;
+				}
+			}
+		}
+		if(monstor[i].y>monstor[i].MoveY && monstor[i].x==monstor[i].MoveX){
+			if(monstor[i].y>0){
+				monstor[i].y=monstor[i].y-step;
+				monstor[i].Direction=3;
+				if(monstor[i].speed_count==speed){
+					if(monstor[i].MoveNum<4){
+						monstor[i].MoveNum++;
+					}
+					if(monstor[i].MoveNum>3){
+						monstor[i].MoveNum=0;
+					}
+					monstor[i].speed_count=0;
+				}else{
+					monstor[i].speed_count++;
+				}
+			}
+		}
+		if(monstor[i].y<monstor[i].MoveY && monstor[i].x==monstor[i].MoveX){
+			if(monstor[i].y<screenHeight){
+				monstor[i].y=monstor[i].y+step;
+				monstor[i].Direction=0;
+				if(monstor[i].speed_count==speed){
+					if(monstor[i].MoveNum<4){
+						monstor[i].MoveNum++;
+					}
+					if(monstor[i].MoveNum>3){
+						monstor[i].MoveNum=0;
+					}
+					monstor[i].speed_count=0;
+				}else{
+					monstor[i].speed_count++;
+				}
+			}
+		}
+	}
 	
-// 	$("#xx").html(monstor[0].x);
-// 	$("#yy").html(monstor[0].y);
-// }
+	$("#xx").html(monstor[0].x);
+	$("#yy").html(monstor[0].y);
+}
 
-// //怪物随机移动设置
-// function setMonstor(){
-// 	for(i=1;i<monstor.length;i++){
-// 		x=parseInt(Math.random()*(screenWidth-50))+1;
-// 		y=parseInt(Math.random()*(screenHeight-50))+1;
-// 		monstor[i].MoveX=x;
-// 		monstor[i].MoveY=y;
-// 	}
-// }
+//怪物随机移动设置
+function setMonstor(){
+	for(i=1;i<monstor.length;i++){
+		x=parseInt(Math.random()*(screenWidth-50))+1;
+		y=parseInt(Math.random()*(screenHeight-50))+1;
+		monstor[i].MoveX=x;
+		monstor[i].MoveY=y;
+	}
+}
 
-// //初始化 
-// $(window).ready(function(){
-// 	AddEventHandlers();//添加事件
-// 	LoadImages();//加载图片
+//初始化 
+$(window).ready(function(){
+	AddEventHandlers();//添加事件
+	LoadImages();//加载图片
 	
-// 	ctx=document.getElementById('canvas').getContext('2d'); //获取2d画布
+	ctx=document.getElementById('canvas').getContext('2d'); //获取2d画布
 	
-// 	//初始化鼠标移动物体
-// 	mouseMove.x=parseInt(screenWidth/2-mouseMove.image.width/2);//X坐标
-// 	mouseMove.y=parseInt(screenHeight/2-mouseMove.image.height/2);//Y坐标
+	//初始化鼠标移动物体
+	mouseMove.x=parseInt(screenWidth/2-mouseMove.image.width/2);//X坐标
+	mouseMove.y=parseInt(screenHeight/2-mouseMove.image.height/2);//Y坐标
 	
-// 	setMonstor();
+	setMonstor();
 	
-// 	setInterval(setMonstor, 5000);
+	setInterval(setMonstor, 5000);
 	
-// 	setInterval(GameLoop, 10); //动画刷新
-// });
+	setInterval(GameLoop, 10); //动画刷新
+});
 </script>
 <div id="container" style="border:1px solid; cursor:none; width:640px; height:480px;">
     <canvas id="canvas" width="640" height="480" > 浏览器不支持html</canvas>
